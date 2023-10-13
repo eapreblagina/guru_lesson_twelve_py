@@ -10,6 +10,8 @@ from tests import resources
 def test_valid_Practice_Form():
     #when
     browser.open('/automation-practice-form')
+    browser.execute_script('document.querySelector("#fixedban").remove()')
+    browser.element('footer').execute_script('element.remove()')
     browser.element('#firstName').click().type('Kate')
     browser.element('#lastName').click().type('Preblagina')
     browser.element('#userEmail').click().type('Katitoporova@bk.ru')
@@ -45,16 +47,16 @@ def test_valid_Practice_Form():
 
     #then
 
-    browser.element('.table').should(
-        have.text(
-            'Kate Preblagina'
-            and 'Katitoporova@bk.ru'
-            and 'Female'
-            and '89515555555'
-            and '09 Aug, 2000'
-            and 'Economics'
-            and 'Sports'
-            and 'foto.jpg'
-            and 'Haryana'
-            and 'Karnal'
-        ))
+    browser.element('.modal-header').should(have.exact_text('Thanks for submitting the form'))
+    browser.element('.table-responsive').all('td:nth-of-type(2)').should(have.texts(
+        'kate Preblagina',
+        'Katitoporova@bk.ru',
+        'Female',
+        '89515555555',
+        '9 Aug,2000',
+        'Economics',
+        'Sports',
+        'foto.jpg',
+        'Пушкина 15',
+        'Haryana Karnal'
+    ))
