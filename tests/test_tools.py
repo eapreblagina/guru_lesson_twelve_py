@@ -1,10 +1,9 @@
-from pathlib import Path
+
 from selene.support.shared import browser
 from selene import have, by
 from selene import command
 import os
-import tests
-from tests import resources
+
 
 
 def test_valid_Practice_Form():
@@ -16,7 +15,7 @@ def test_valid_Practice_Form():
     browser.element('#lastName').click().type('Preblagina')
     browser.element('#userEmail').click().type('Katitoporova@bk.ru')
     browser.element('[name=gender][value=Female] + label').click()
-    browser.element('#userNumber').click().type(89515555555)
+    browser.element('#userNumber').click().type('1234567890')
 
     browser.element('#dateOfBirthInput').click()
     browser.element('.react-datepicker__month-select').type('August')
@@ -30,11 +29,7 @@ def test_valid_Practice_Form():
 
     browser.all('.custom-checkbox').element_by(have.text('Sports')).click()
 
-    browser.element('#uploadPicture').set_value(
-        os.path.abspath(
-            os.path.join(os.path.dirname(tests.__file__), 'resources/foto.jpg')
-        )
-    )
+    browser.element('#uploadPicture').set_value(os.path.abspath('resources/foto.jpg'))
 
     browser.element('#currentAddress').type('Пушкина 15').perform(command.js.scroll_into_view)
 
@@ -49,11 +44,11 @@ def test_valid_Practice_Form():
 
     browser.element('.modal-header').should(have.exact_text('Thanks for submitting the form'))
     browser.element('.table-responsive').all('td:nth-of-type(2)').should(have.texts(
-        'kate Preblagina',
+        'Kate Preblagina',
         'Katitoporova@bk.ru',
         'Female',
-        '89515555555',
-        '9 Aug,2000',
+        '1234567890',
+        '09 August,2000',
         'Economics',
         'Sports',
         'foto.jpg',
