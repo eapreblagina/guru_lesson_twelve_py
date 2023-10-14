@@ -5,7 +5,6 @@ from selene import command
 import os
 
 
-
 def test_valid_Practice_Form():
     #when
     browser.open('/automation-practice-form')
