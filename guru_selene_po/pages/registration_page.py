@@ -1,4 +1,5 @@
 import os
+from imghdr import tests
 
 from selene import have, command
 from selene.support.shared import browser
@@ -38,7 +39,10 @@ class RegistrationForm:
         browser.all('.custom-checkbox').element_by(have.text(hobbies)).click()
 
     def add_picture(self, file_name):
-        return browser.element('#uploadPicture').set_value(os.path.abspath(f'resources/{file_name}'))
+        # return browser.element('#uploadPicture').set_value(os.path.abspath(f'resources/{file_name}'))
+        return browser.element('#uploadPicture').send_keys(
+         os.path.abspath(
+            os.path.join(os.path.dirname(tests.__file__), f'img/{file_name}')))
 
     def current_address(self, address):
         browser.element('#currentAddress').type(address).perform(command.js.scroll_into_view)
