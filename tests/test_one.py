@@ -1,5 +1,4 @@
 import allure
-
 from guru_selene_po.pages.registration_page import RegistrationForm
 
 
